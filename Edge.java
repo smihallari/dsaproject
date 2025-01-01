@@ -9,10 +9,6 @@ class Edge {
         this.weight = w;
     }
 
-    public Edge(Vertex s, Vertex d) {
-        this.source = s;
-        this.destination = d;
-    }
 
     public void setWeight(int w) {
         this.weight = w;

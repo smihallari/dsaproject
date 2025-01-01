@@ -19,7 +19,7 @@ public class CustomSet<T> {
         elements[size++] = element;
         return true;
     }
-
+    
     public boolean remove(T element) {
         for (int i = 0; i < size; i++) {
             if (elements[i].equals(element)) {
@@ -30,6 +30,16 @@ public class CustomSet<T> {
             }
         }
         return false;
+    }
+    private void validateIndex(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+    }
+    @SuppressWarnings("unchecked")
+    public T get(int index) {
+        validateIndex(index);
+        return (T) elements[index];
     }
 
     public boolean contains(T element) {

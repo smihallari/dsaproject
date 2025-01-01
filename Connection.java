@@ -1,7 +1,7 @@
 public class Connection extends Edge {
 
-    public Connection(Location from, Location to) {
-        super(from, to);
+    public Connection(Location from, Location to,int weight) {
+        super(from, to, weight);
     }
 
     public void updateTraffic(int traffic) {

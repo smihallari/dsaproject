@@ -9,8 +9,8 @@ public class Garage {
         return trucks.size();
     }
 
-    public void addTruck(int ID,int truckWeight, int maxCarryWeight){
-        trucks.add(new Truck(ID,truckWeight,maxCarryWeight));
+    public void addTruck(int ID,int truckWeight, int maxCarryWeight,District d){
+        trucks.add(new Truck(ID,truckWeight,maxCarryWeight,d));
     }
     public Truck getTruck(int truckID) throws NoSuchTruckException {
         for(int i=0;i<trucks.size();i++){

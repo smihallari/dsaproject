@@ -3,11 +3,11 @@ public class RoadMap extends CustomGraph {
         super();
     }
 
-    public void addLocation(Location location) {
-        super.addVertex(location);
-    }
+    // public void addLocation(Location location) {
+    //     super.add(location);
+    // }
 
     public void addConnection(Location from, Location to,int weight) {
-        super.addEdge(from, to,weight);
+        super.addConnection(from, to,weight);
     }
 }

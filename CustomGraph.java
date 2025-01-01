@@ -1,19 +1,29 @@
 public class CustomGraph {
 
-    private CustomHashmap<Vertex, CustomList<Edge>> adjacencyList;
-
+    public static CustomSet<Location> graphVertices;
+    public static CustomSet<Connection> graphEdges;
     public CustomGraph() {
-        this.adjacencyList = new CustomHashmap<>();
+        graphVertices = new CustomSet<>();
+        graphEdges = new CustomSet<>();
+    }
+    public CustomGraph(CustomSet<Location> graphVertices, CustomSet<Connection> graphEdges) {
+        CustomGraph.graphVertices = graphVertices;
+        CustomGraph.graphEdges = graphEdges;
+    }
+    private void addLocation(Location l) {
+        if(graphVertices.contains(l)) return;
+        graphVertices.add(l);
+    }   
+    public CustomSet<Location> getCityLocations(){
+        return graphVertices;
+    }
+    public CustomSet<Connection> getCityEdges(){
+        return graphEdges;
     }
 
-    public void addVertex(Vertex v) {
-        if(adjacencyList.containsKey(v)) return;
-        adjacencyList.put(v, new CustomList<>());
-    }
-
-    public void addEdge(Vertex source, Vertex destination,int weight) {
-        addVertex(source);
-        addVertex(destination);
-        adjacencyList.get(source).add(new Edge(source, destination,weight));
+    public void addConnection(Location source, Location destination,int weight) {
+        addLocation(source);
+        addLocation(destination);
+        graphEdges.add(new Connection(source, destination,weight));
     }
 }

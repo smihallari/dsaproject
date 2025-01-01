@@ -35,6 +35,14 @@ class CustomList<T> {
         return removedElement;
     }
 
+    public boolean contains(T element) {
+        for (int i = 0; i < size; i++) {
+            if (elements[i].equals(element)) {
+                return true;
+            }
+        }
+        return false;
+    }
     @SuppressWarnings("unchecked")
     public T remove(Object o) {
         for (int i = 0; i < size; i++) {

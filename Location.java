@@ -3,6 +3,10 @@ public class Location extends Vertex{
         super(address, id);
     }
 
+    public Location( int id,String address) {
+        super(address, id);
+    }
+
     public String getAddress() {
         return this.getLabel();
     }
