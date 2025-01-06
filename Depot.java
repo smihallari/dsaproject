@@ -24,7 +24,7 @@ public class Depot {
 
     public void addTruckToGarage(int truckid,District d){
         Random random= new Random();
-        garage.addTruck(truckid, (random.nextInt(1000)+2500), (random.nextInt(1000)+4000),d );
+        garage.addTruck(truckid, (random.nextInt(1000)+2500), (random.nextInt(1000)+10000),d );
     }
     public void fillTruckWithPackages(int truckID) {
             Truck t =garage.getTruck(truckID);

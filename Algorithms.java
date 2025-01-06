@@ -1,4 +1,6 @@
 import java.util.*;
+import java.io.FileWriter;
+import java.io.IOException;
 public class Algorithms {
 
     // Get the distance between two vertices in the original graph
@@ -55,7 +57,7 @@ public static Map<Location, List<Location>> dijkstra1(Location start, List<Locat
 
 // Solve the TSP for the subset of vertices including helper vertices
 public static List<Location> solveTSP(Location start, List<Location> toVisit, List<Connection> edges, List<Location> allVertices) {
-    
+    long startTime = System.nanoTime();
     List<Location> bestRoute = new ArrayList<>();
     int bestCost = Integer.MAX_VALUE;
     
@@ -122,7 +124,17 @@ public static List<Location> solveTSP(Location start, List<Location> toVisit, Li
             bestRoute = new ArrayList<>(currentRoute);
         }
     }
-
+    double elapsedTime = (System.nanoTime() - startTime) / 1_000_000_000.0;
+    try (FileWriter writer = new FileWriter("operationData.txt",true)){
+        writer.write("________________________________________________\n");
+        writer.write("CASE FOR TSP\n");
+        writer.write("Elapsed time for TSP: "+elapsedTime+" seconds\n");
+        writer.write("Num of locations to visit: "+toVisit.size()+"\n");
+        writer.write("________________________________________________\n");
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    
     return bestRoute;
 }
 

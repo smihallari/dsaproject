@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 class Truck {
@@ -160,10 +162,7 @@ class Truck {
     }
 
     public  void goToLocation(Location l) throws NonExistentLocationException {
-        System.out.println(l.label);
-        System.out.println(getTruckCurrentLocation().label);
         int w = Algorithms.getDistance(getTruckCurrentLocation(), l, district.getRoadsInD());
-        System.out.println(w);
         setTruckFuel(getTruckFuel()-w/10);
         System.out.println(getTruckFuel());
         try {
@@ -179,6 +178,8 @@ class Truck {
     }
 
     public void setOff() {
+        long startTime=System.nanoTime();
+        int packagesDelivered=CargoList.size();
         calculateRoute();
         try {
             while (!CargoList.isEmpty()) {
@@ -189,6 +190,15 @@ class Truck {
                 goToLocation(truckRoute.pollFirst());
             }
             System.out.println("Truck with id: "+truckID+" returned to depot");
+            double elapsedTime = (System.nanoTime() - startTime) / 1_000_000_000.0;
+            try (FileWriter writer = new FileWriter("operationData.txt",true)){
+                writer.write("________________________________________________\n");
+                writer.write("Elapsed time for truck to set off and return: "+elapsedTime+" seconds\n");
+                writer.write("Num of packages delivered: "+packagesDelivered+"\n");
+                writer.write("________________________________________________\n");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } catch (NonExistentLocationException e) {
             e.printStackTrace();
         }
