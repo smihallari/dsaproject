@@ -1,16 +1,19 @@
+import java.util.*;
+
 public class District extends CustomGraph {
 
     private String name;
-    private CustomList<Location> locationsInDistrict;
-    private CustomList<Connection> roadsInD;
+    private List<Location> locationsInDistrict;
+    private List<Connection> roadsInD;
     public District(String name) {
         this.name = name;
-        locationsInDistrict = new CustomList<>();
+        locationsInDistrict = new ArrayList<>();
+        roadsInD = new ArrayList<>();
     }
-    public CustomList<Location> getLocationsInD(){
+    public List<Location> getLocationsInD(){
         return  locationsInDistrict;
     }
-    public CustomList<Connection> getRoadsInD(){
+    public List<Connection> getRoadsInD(){
         return roadsInD;
     }
     public String getDistrictName(){

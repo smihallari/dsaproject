@@ -1,5 +1,3 @@
-import java.util.Objects;
-
 public class Vertex {
     
     String label;
@@ -37,7 +35,7 @@ public class Vertex {
     }
 
     public boolean equals(Vertex v) {
-        return (Objects.equals(this.label, v.getLabel()) && this.id == v.getID());
+        return ( this.id == v.getID());
     }
 
     public String toString() {

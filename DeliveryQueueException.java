@@ -1,4 +1,4 @@
-public class DeliveryQueueException extends RuntimeException {
+public class DeliveryQueueException extends Exception {
     public DeliveryQueueException(String message) {
         super(message);
     }

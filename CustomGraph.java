@@ -1,23 +1,37 @@
+import java.util.*;
+
 public class CustomGraph {
 
-    public static CustomSet<Location> graphVertices;
-    public static CustomSet<Connection> graphEdges;
+    public  List<Location> graphVertices;
+    public  List<Connection> graphEdges;
+    public Location base;
     public CustomGraph() {
-        graphVertices = new CustomSet<>();
-        graphEdges = new CustomSet<>();
+        graphVertices = new ArrayList<>();
+        graphEdges = new ArrayList<>();
     }
-    public CustomGraph(CustomSet<Location> graphVertices, CustomSet<Connection> graphEdges) {
-        CustomGraph.graphVertices = graphVertices;
-        CustomGraph.graphEdges = graphEdges;
+    public CustomGraph(List<Location> vertices, List<Connection> edges) {
+        graphVertices = vertices;
+        graphEdges = edges;
+    }
+    public void setBase(Location l){
+        base = l;
+    }
+    public Location getBase(){
+        return base;
     }
     private void addLocation(Location l) {
         if(graphVertices.contains(l)) return;
         graphVertices.add(l);
     }   
-    public CustomSet<Location> getCityLocations(){
+    public List<Location> getCityLocations(){
         return graphVertices;
     }
-    public CustomSet<Connection> getCityEdges(){
+    public Location getRandomLocation(){
+        Random rand = new Random();
+        int randomIndex = rand.nextInt(graphVertices.size()-1)+1; 
+        return graphVertices.get(randomIndex);
+    }
+    public List<Connection> getCityEdges(){
         return graphEdges;
     }
 

@@ -26,7 +26,7 @@ public class DeliveryQueue<T extends Package> {
 
     public T dequeue() {
         if (head == null) {
-            throw new DeliveryQueueException("Delivery queue is empty");
+            System.out.println("Delivery queue is empty");
         }
         T data = head.data;
         head = head.next;
@@ -36,7 +36,7 @@ public class DeliveryQueue<T extends Package> {
 
     public T peek() {
         if (head == null) {
-            throw new DeliveryQueueException("Delivery queue is empty");
+            System.out.println("its empty");
         }
         return head.data;
     }

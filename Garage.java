@@ -1,8 +1,10 @@
+import java.util.ArrayList;
+
 public class Garage {
-    private CustomList<Truck> trucks; 
+    private ArrayList<Truck> trucks; 
 
     public Garage() {
-        trucks = new CustomList<Truck>();
+        trucks = new ArrayList<Truck>();
     }
 
     public int size(){
@@ -12,18 +14,18 @@ public class Garage {
     public void addTruck(int ID,int truckWeight, int maxCarryWeight,District d){
         trucks.add(new Truck(ID,truckWeight,maxCarryWeight,d));
     }
-    public Truck getTruck(int truckID) throws NoSuchTruckException {
+    public Truck getTruck(int truckID)  {
         for(int i=0;i<trucks.size();i++){
-            if(trucks.get(i).getTruckId()==truckID){
+            if(trucks.get(i).getTruckID()==truckID){
                 return trucks.get(i);
             }
-        }
-        throw new NoSuchTruckException("There is no truck with such an id");
+        }return null;
+        
     }
 
     public void removeTruck(int truckId) {
         for (int i = 0; i < trucks.size(); i++) {
-            if (trucks.get(i).getTruckId() == truckId) {
+            if (trucks.get(i).getTruckID() == truckId) {
                 trucks.remove(i);
             }
         }
@@ -33,9 +35,9 @@ public class Garage {
     public void displayAvailableGarage() {
         for (int i=0;i<trucks.size();i++) {
             if (!trucks.get(i).isonDelivery()) {
-                System.out.println("Truck with ID"+trucks.get(i).getTruckId()+" is available.");
+                System.out.println("Truck with ID"+trucks.get(i).getTruckID()+" is available.");
             } else {
-                System.out.println("Truck with ID"+trucks.get(i).getTruckId()+" is on a delivery.");
+                System.out.println("Truck with ID"+trucks.get(i).getTruckID()+" is on a delivery.");
             }
         }
     }

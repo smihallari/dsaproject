@@ -50,6 +50,7 @@ public class Main {
         cg.addConnection(v8, v20, 105);
         cg.addConnection(v9, v21, 110);
         cg.addConnection(v9, v22, 115);
+        cg.addConnection(v9, v11, 115);
         cg.addConnection(v10, v23, 120);
         cg.addConnection(v10, v24, 125);
         cg.addConnection(v11, v0, 130);
@@ -67,9 +68,9 @@ public class Main {
         cg.addConnection(v23, v12, 190);
         cg.addConnection(v24, v13, 195);
         
-        Depot depot = new Depot(cg);
+        
         District eastside = new District("pew");
-        eastside.includeLocations(v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15,v16,v17,v18,v19,v20,v22,v21,v23,v24);
+        eastside.includeLocations(v0,v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15,v16,v17,v18,v19,v20,v22,v21,v23,v24);
         eastside.includeConnection(
     new Connection(v0, v1, 10), new Connection(v0, v2, 15), 
     new Connection(v0, v3, 20), new Connection(v0, v4, 25),
@@ -91,9 +92,18 @@ public class Main {
     new Connection(v21, v10, 180), new Connection(v22, v11, 185),
     new Connection(v23, v12, 190), new Connection(v24, v13, 195)
 );
-
+        Depot depot = new Depot(cg);
         depot.addTruckToGarage(1, eastside);
-        depot.setTruckOff(1);
+        depot.fillPackages(400);
+        depot.fillTruckWithPackages(1);
+        depot.setCityBase(v0);
+        depot.addTruckToGarage(2, eastside);
+        depot.fillTruckWithPackages(2);
+        Thread thread1 = new Thread(() -> depot.setTruckOff(1));
+        Thread thread2 = new Thread(() -> depot.setTruckOff(2));
+
+        thread1.start();
+        thread2.start();
     }
 
     

@@ -4,7 +4,7 @@ public class Algorithms {
     // Get the distance between two vertices in the original graph
     public static int getDistance(Location from, Location to, List<Connection> edges) {
         for (Connection edge : edges) {
-            if (edge.source.equals(from) && edge.destination.equals(to)) {
+            if (edge.getSource().equals(from) && edge.getDestination().equals(to)) {
                 return edge.weight;
             }
         }
@@ -12,7 +12,8 @@ public class Algorithms {
     }
 
   // Dijkstra's algorithm to find the shortest path between two vertices (returns distances and paths)
-public static Map<Location, List<Location>> dijkstra(Location start, List<Location> vertices, List<Connection> edges) {
+public static Map<Location, List<Location>> dijkstra1(Location start, List<Location> vertices, List<Connection> edges) {
+    
     int n = vertices.size();
     int[] dist = new int[n];
     Arrays.fill(dist, Integer.MAX_VALUE);
@@ -25,18 +26,19 @@ public static Map<Location, List<Location>> dijkstra(Location start, List<Locati
     paths.get(start).add(start);
 
     PriorityQueue<Location> pq = new PriorityQueue<>(Comparator.comparingInt(v -> dist[v.id]));
+    
     pq.add(start);
-
+    
     while (!pq.isEmpty()) {
         Location u = pq.poll();
-
+        
         for (Location v : vertices) {
             if (u.equals(v)) continue;
-
             int weight = getDistance(u, v, edges);
             if (weight == Integer.MAX_VALUE) continue;
-
-            if (dist[u.id] != Integer.MAX_VALUE && dist[u.id] + weight < dist[v.id]) {
+                
+            if (u.id < n && v.id < n && dist[u.id] != Integer.MAX_VALUE && dist[u.id] + weight < dist[v.id]) {
+                
                 dist[v.id] = dist[u.id] + weight;
                 pq.add(v);
 
@@ -53,14 +55,16 @@ public static Map<Location, List<Location>> dijkstra(Location start, List<Locati
 
 // Solve the TSP for the subset of vertices including helper vertices
 public static List<Location> solveTSP(Location start, List<Location> toVisit, List<Connection> edges, List<Location> allVertices) {
+    
     List<Location> bestRoute = new ArrayList<>();
     int bestCost = Integer.MAX_VALUE;
-
-    // Build shortest path graph between all vertices
+    
+    
     Map<Location, Map<Location, List<Location>>> shortestPaths = new HashMap<>();
     for (Location v1 : allVertices) {
         shortestPaths.put(v1, new HashMap<>());
-        Map<Location, List<Location>> paths = dijkstra(v1, allVertices, edges);
+        Map<Location, List<Location>> paths = dijkstra1(v1, allVertices, edges);
+        
         for (Location v2 : allVertices) {
             if (!v1.equals(v2)) {
                 shortestPaths.get(v1).put(v2, paths.get(v2));
@@ -78,9 +82,9 @@ public static List<Location> solveTSP(Location start, List<Location> toVisit, Li
         boolean validPermutation = true;
         List<Location> currentRoute = new ArrayList<>();
         currentRoute.add(start); // Start with the starting Location
-
         for (Location next : perm) {
-            List<Location> path = shortestPaths.get(current).get(next);
+            List<Location> path = shortestPaths.get(start).get(next);
+            
             if (path == null || path.isEmpty()) {
                 validPermutation = false;
                 break;
@@ -144,10 +148,9 @@ public static List<Location> solveTSP(Location start, List<Location> toVisit, Li
             Collections.swap(list, i, start);
         }
     }
-    // example usage of the graph 
+   
     // public static void main(String[] args) {
-    //     // Create vertices
-    //     // Define vertices
+        
     //     Location v0 = new Location(0, "A");
     //     Location v1 = new Location(1, "B");
     //     Location v2 = new Location(2, "C");
@@ -180,17 +183,17 @@ public static List<Location> solveTSP(Location start, List<Location> toVisit, Li
     //     );
 
     //     // Define edges (you can add more or adjust the weights as per your needs)
-    //     List<Edge> edges = Arrays.asList(
-    //         new Edge(v0, v1, 10), new Edge(v0, v2, 15), new Edge(v0, v3, 20), new Edge(v0, v4, 25),
-    //         new Edge(v1, v5, 30), new Edge(v1, v6, 35), new Edge(v2, v7, 40), new Edge(v2, v8, 45),
-    //         new Edge(v3, v9, 50), new Edge(v3, v10, 55), new Edge(v4, v11, 60), new Edge(v4, v12, 65),
-    //         new Edge(v5, v13, 70), new Edge(v5, v14, 75), new Edge(v6, v15, 80), new Edge(v6, v16, 85),
-    //         new Edge(v7, v17, 90), new Edge(v7, v18, 95), new Edge(v8, v19, 100), new Edge(v8, v20, 105),
-    //         new Edge(v9, v21, 110), new Edge(v9, v22, 115), new Edge(v10, v23, 120), new Edge(v10, v24, 125),
-    //         new Edge(v11, v0, 130), new Edge(v12, v1, 135), new Edge(v13, v2, 140), new Edge(v14, v3, 145),
-    //         new Edge(v15, v4, 150), new Edge(v16, v5, 155), new Edge(v17, v6, 160), new Edge(v18, v7, 165),
-    //         new Edge(v19, v8, 170), new Edge(v20, v9, 175), new Edge(v21, v10, 180), new Edge(v22, v11, 185),
-    //         new Edge(v23, v12, 190), new Edge(v24, v13, 195)
+    //     List<Connection> edges = Arrays.asList(
+    //         new Connection(v0, v1, 10), new Connection(v0, v2, 15), new Connection(v0, v3, 20), new Connection(v0, v4, 25),
+    //         new Connection(v1, v5, 30), new Connection(v1, v6, 35), new Connection(v2, v7, 40), new Connection(v2, v8, 45),
+    //         new Connection(v3, v9, 50), new Connection(v3, v10, 55), new Connection(v4, v11, 60), new Connection(v4, v12, 65),
+    //         new Connection(v5, v13, 70), new Connection(v5, v14, 75), new Connection(v6, v15, 80), new Connection(v6, v16, 85),
+    //         new Connection(v7, v17, 90), new Connection(v7, v18, 95), new Connection(v8, v19, 100), new Connection(v8, v20, 105),
+    //         new Connection(v9, v21, 110), new Connection(v9, v22, 115), new Connection(v10, v23, 120), new Connection(v10, v24, 125),
+    //         new Connection(v11, v0, 130), new Connection(v12, v1, 135), new Connection(v13, v2, 140), new Connection(v14, v3, 145),
+    //         new Connection(v15, v4, 150), new Connection(v16, v5, 155), new Connection(v17, v6, 160), new Connection(v18, v7, 165),
+    //         new Connection(v19, v8, 170), new Connection(v20, v9, 175), new Connection(v21, v10, 180), new Connection(v22, v11, 185),
+    //         new Connection(v23, v12, 190), new Connection(v24, v13, 195)
     //     );
 
     //     // Subset of vertices to visit (including v0)
@@ -218,7 +221,7 @@ public static List<Location> solveTSP(Location start, List<Location> toVisit, Li
         dist[start.id] = 0; // Distance to the start Location is zero
     
         Map<Location, List<Location>> paths = new HashMap<>(); // Store paths for target vertices
-        for (Location Location : targetVertices) {
+        for (Location Location : vertices) {
             paths.put(Location, new ArrayList<>());
         }
         paths.get(start).add(start); // Initialize the start Location path
