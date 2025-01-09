@@ -17,7 +17,7 @@ public class Vertex {
         setID (v);
         label= "null";
     }
-
+    // getters and setters
     private void setLabel(String l) {
         this.label = l;
     }
@@ -33,9 +33,9 @@ public class Vertex {
     public int getID() {
         return this.id;
     }
-
+    // determine if a vertex is equal to another, as there are vertexes with the same id and same label, we need to check both of them
     public boolean equals(Vertex v) {
-        return ( this.id == v.getID());
+        return (this.id == v.getID());
     }
 
     public String toString() {

@@ -4,26 +4,37 @@ import java.util.*;
 
 class Truck {
     private int truckID;
+
     public boolean onDeliveryjob;
+    // the list of packages the truck currently has, which it needs to deliver
     private List<Package> CargoList;
+    // current truck weight, taking into account its own(driver,fluids, miscelleanous included) and the total weight of the packages
     private float truckWeight;
+    // maximum weight the truck can have
     private float maxWeight;
+    // where the truck is in the city
     private Location truckCurrentLocation;
+
     private float truckFuel;
+    // the current route of the truck, containing the locations of where it is going in succession.
     private LinkedList<Location> truckRoute;
     private boolean onItsWayToRefuel;
+    // the district the truck belongs to
     private District district;
+    // the city the truck belongs to
+    private RoadMap citymap;
 
-    Truck(int ID, float weight, float max, District d) {
+    Truck(int ID, float weight, float max, RoadMap city) {
         truckID = ID;
         onDeliveryjob = false;
         truckWeight = weight;
-        truckFuel = 100;
+        truckFuel = 1000;
         CargoList = new ArrayList<Package>();
         maxWeight = max;
         truckRoute = new LinkedList<Location>();
         onItsWayToRefuel = false;
-        district = d;
+        citymap = city;
+
     }
     // Getter and Setter for truckID
     public int getTruckID() {
@@ -115,8 +126,11 @@ class Truck {
         this.district = district;
     }
 
-    
-        public void addPackage(Package p) throws TruckOverWeightException {
+    // method to add a package to the truck, checking that the weight of that package doesnt make the truck overweight.
+        public void addPackage(Package p) {
+            addpackage(p);
+        }
+        private void addpackage(Package p) throws TruckOverWeightException {
             if (truckWeight + p.getWeight() >= maxWeight) {
                 throw new TruckOverWeightException("Package can not be added to the truck, it can not store such a heavy load.");
             } else {
@@ -124,8 +138,12 @@ class Truck {
                 CargoList.add(p);
             }
         }
-    
-        public  void deliverPackages()   {
+
+        // method to deliver(or not) packages at the locations the truck is in.
+        public void deliverPackages(){
+            deliverpackages();
+        }
+        private  void deliverpackages()   {
             if (!getCargoList().isEmpty()) {
                 for (int i = 0; i < getCargoList().size(); i++) {
                     Package p = getCargoList().get(i);
@@ -139,12 +157,13 @@ class Truck {
             }
         }
 
-    private boolean truckNeedstoRefuel() {
-        return getTruckFuel() < 30;
-    }
-
+    // private boolean truckNeedstoRefuel() {
+    //     return getTruckFuel() < 30;
+    // }
+    
     public void goToReFuel(List<Location> gasStations) {
-        List<Location> path = Algorithms.dijkstraOnlyShortest(truckCurrentLocation, gasStations, district.getLocationsInD(), district.getRoadsInD());
+
+        List<Location> path = Algorithms.dijkstraOnlyShortest(truckCurrentLocation, gasStations, citymap.getCityLocations(), citymap.getCityRoads());
         truckRoute = new LinkedList<Location>();
         for (Location l : path) {
             truckRoute.addFirst(l);
@@ -160,14 +179,21 @@ class Truck {
         onItsWayToRefuel = false;
         getNextStop();
     }
+    //method to move the truck to a certain location in the map
+    public  void goToLocation(Location l)  {
+        gotoLocation(l);
+    }
+    private  void gotoLocation(Location l)  {
+        if(l==truckCurrentLocation){System.out.println("at this location");}
+        float w = (Algorithms.getDistance(getTruckCurrentLocation(), l, citymap.getCityRoads()))/100;
+        System.out.println("weight"+w);
+        truckFuel-=w;
 
-    public  void goToLocation(Location l) throws NonExistentLocationException {
-        int w = Algorithms.getDistance(getTruckCurrentLocation(), l, district.getRoadsInD());
-        setTruckFuel(getTruckFuel()-w/10);
+        System.out.println(getTruckFuel());
         System.out.println(getTruckFuel());
         try {
             
-            Thread.sleep(1);
+            Thread.sleep(20);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -176,20 +202,28 @@ class Truck {
         deliverPackages();
         
     }
-
-    public void setOff() {
+    // method to start deliveries, calculating route and then coming back to the depot
+    public void setOff(){
+        setoff();
+    }
+    private void setoff() {
         long startTime=System.nanoTime();
         int packagesDelivered=CargoList.size();
         calculateRoute();
-        try {
+        System.out.println(CargoList.size());
+            System.out.println(CargoList.size());
             while (!CargoList.isEmpty()) {
                 goToLocation(getNextStop());
             }
-            System.out.println("Truck with id: "+truckID+"returning to depot");
+            System.out.println("Truck with id: "+truckID+" is returning to depot");
             while(!truckRoute.isEmpty()){
                 goToLocation(truckRoute.pollFirst());
+                if(truckCurrentLocation==citymap.getBase()){
+                    System.out.println("Truck with id: "+truckID+" returned to depot");
+                    break;
+                }
             }
-            System.out.println("Truck with id: "+truckID+" returned to depot");
+            
             double elapsedTime = (System.nanoTime() - startTime) / 1_000_000_000.0;
             try (FileWriter writer = new FileWriter("operationData.txt",true)){
                 writer.write("________________________________________________\n");
@@ -199,30 +233,28 @@ class Truck {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } catch (NonExistentLocationException e) {
-            e.printStackTrace();
-        }
+        
     }
 
-    public Location getNextStop() {
-        if (!truckNeedstoRefuel()) {
+    private Location getNextStop() {
+        // if (!truckNeedstoRefuel()) {
             if (!truckRoute.isEmpty()) {
                 return truckRoute.pollFirst();
             } else {
                 calculateRoute();
                 return truckRoute.pollFirst();
             }
-        } else {
-            if (onItsWayToRefuel) return truckRoute.pollFirst();
-            else {
-                if(truckRoute.isEmpty()){
-                    calculateRoute();
-                    return truckRoute.pollFirst();
-                }
-                // goToReFuel(new CustomList<FuelStation> = {});
-                return truckRoute.pollFirst();
-            }
-        }
+        // } else {
+        //     if (onItsWayToRefuel) return truckRoute.pollFirst();
+        //     else {
+        //         if(truckRoute.isEmpty()){
+        //             calculateRoute();
+        //             return truckRoute.pollFirst();
+        //         }
+        //         goToReFuel(citymap.getGasStations());
+        //         return truckRoute.pollFirst();
+        //     }
+        // }
     }
 
     public boolean isonDelivery() {
@@ -236,8 +268,10 @@ class Truck {
     public void finishedDelivering() {
         onDeliveryjob = false;
     }
-
-    public  void calculateRoute() {
+    // method to calculate the route of the truck, firstly we see which locations we need to go to
+    // then, using dijkstra's if the number of locations> 10, we find the closest location and go there. 
+    // if num of locations <10, we use TSP to find the absolute least-costly path.
+    private void calculateRoute() {
         List<Location> locationsToVisit = new ArrayList<>();
         for (int i = 0; i < CargoList.size(); i++) {
             Location l = CargoList.get(i).getDeliveryLocation();
@@ -246,25 +280,34 @@ class Truck {
             }
         }
         
+        // if locations to visit are bigger than 10, use dijkstra to find the shortest and just go there.
         if (locationsToVisit.size() > 10) {
-            Map<Location, List<Location>> paths = Algorithms.dijkstra(getTruckCurrentLocation(), locationsToVisit, district.getLocationsInD(), district.getRoadsInD());
+            
+            Map<Location, List<Location>> paths = Algorithms.dijkstra(getTruckCurrentLocation(), locationsToVisit, citymap.getCityLocations(), citymap.getCityRoads());
             reCalculateDeliveryWeightFactor(paths);
             Package chosen = nextDelivery();
-            truckRoute= new LinkedList<>();
+            System.out.println(chosen.getPackageID());
+            truckRoute = new LinkedList<>();
             List<Location> chosenPath = paths.get(chosen.getDeliveryLocation());
+            for(Location l: chosenPath)
+            {
+                System.out.println("insdieforlipp"+l.id);
+            }
+            System.out.println(chosenPath.size());
             chosenPath.remove(0);
             for (Location l : chosenPath) {
-                truckRoute.addFirst(l);
+                truckRoute.add(l);
             }
+            // else if they are 10 or lower, use TSP to find absolute shortest path
         } else {
-            List<Location> fullRoute = Algorithms.solveTSP(getTruckCurrentLocation(), locationsToVisit, district.getRoadsInD(), district.getLocationsInD());
+            List<Location> fullRoute = Algorithms.solveTSP(getTruckCurrentLocation(), locationsToVisit, citymap.getCityRoads(), citymap.getCityLocations());
             for (Location l : fullRoute) {
                 truckRoute.addFirst(l);
             }
         }
     }
-
-    public  void reCalculateDeliveryWeightFactor(Map<Location, List<Location>> paths) {
+    // calculate the delivery weight factor for each package.
+    private void reCalculateDeliveryWeightFactor(Map<Location, List<Location>> paths) {
         int proximityDelta = 1;
         int priorityDelta = 2;
         for (Map.Entry<Location, List<Location>> entry : paths.entrySet()) {
@@ -274,7 +317,7 @@ class Truck {
             for (int i = 0; i < path.size() - 1; i++) {
                 Location u = path.get(i);
                 Location v = path.get(i + 1);
-                totalDistanceWeight += Algorithms.getDistance(u, v, district.getRoadsInD());
+                totalDistanceWeight += Algorithms.getDistance(u, v, citymap.getCityRoads());
             }
             for (int i = 0; i < CargoList.size(); i++) {
                 Package p = CargoList.get(i);
@@ -289,14 +332,8 @@ class Truck {
             }
         }
     }
-
-    public  void removeStop() {
-        if (truckCurrentLocation == truckRoute.getFirst()) {
-            truckRoute.removeFirst();
-        }
-    }
-
-    public  Package nextDelivery() {
+    // method to find the package with the lowest delivery weight factor and select that as the one to be delivered first
+    private  Package nextDelivery() {
         if (!CargoList.isEmpty()) {
             Package p = CargoList.get(0);
             for (int i = 1; i < CargoList.size(); i++) {

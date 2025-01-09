@@ -7,13 +7,12 @@ public class Garage {
         trucks = new ArrayList<Truck>();
     }
 
-    public int size(){
-        return trucks.size();
+    
+    // method to add a truck to the garage list of trucks.
+    public void addTruck(int ID,int truckWeight, int maxCarryWeight,RoadMap city){
+        trucks.add(new Truck(ID,truckWeight,maxCarryWeight,city));
     }
-
-    public void addTruck(int ID,int truckWeight, int maxCarryWeight,District d){
-        trucks.add(new Truck(ID,truckWeight,maxCarryWeight,d));
-    }
+    // get a specific truck based on its id.
     public Truck getTruck(int truckID)  {
         for(int i=0;i<trucks.size();i++){
             if(trucks.get(i).getTruckID()==truckID){
@@ -22,7 +21,7 @@ public class Garage {
         }return null;
         
     }
-
+    // remove a truck from the garage
     public void removeTruck(int truckId) {
         for (int i = 0; i < trucks.size(); i++) {
             if (trucks.get(i).getTruckID() == truckId) {
@@ -31,7 +30,7 @@ public class Garage {
         }
     }
 
-
+    // display which trucks are available.
     public void displayAvailableGarage() {
         for (int i=0;i<trucks.size();i++) {
             if (!trucks.get(i).isonDelivery()) {

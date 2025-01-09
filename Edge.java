@@ -1,12 +1,12 @@
 class Edge {
     Vertex source;
     Vertex destination;
-    int weight;
+    public int weight;
 
-    public Edge(Vertex s, Vertex d, int w) {
+    public Edge(Vertex s, Vertex d) {
         this.source = s;
         this.destination = d;
-        this.weight = w;
+        weight = 0;
     }
 
 

@@ -26,18 +26,19 @@ public class CustomGraph {
     public List<Location> getCityLocations(){
         return graphVertices;
     }
+    // get a random location from the locations in the city, used to emulate real world conditions 
     public Location getRandomLocation(){
         Random rand = new Random();
         int randomIndex = rand.nextInt(graphVertices.size()-1)+1; 
         return graphVertices.get(randomIndex);
     }
-    public List<Connection> getCityEdges(){
+    public List<Connection> getCityRoads(){
         return graphEdges;
     }
-
-    public void addConnection(Location source, Location destination,int weight) {
+    // method to add a connection to the graph
+    public void addConnection(Location source, Location destination) {
         addLocation(source);
         addLocation(destination);
-        graphEdges.add(new Connection(source, destination,weight));
+        graphEdges.add(new Connection(source, destination));
     }
 }
