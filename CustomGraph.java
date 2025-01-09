@@ -29,7 +29,8 @@ public class CustomGraph {
     // get a random location from the locations in the city, used to emulate real world conditions 
     public Location getRandomLocation(){
         Random rand = new Random();
-        int randomIndex = rand.nextInt(graphVertices.size()-1)+1; 
+        int randomIndex = rand.nextInt(graphVertices.size()-1)+1;
+
         return graphVertices.get(randomIndex);
     }
     public List<Connection> getCityRoads(){

@@ -1,3 +1,4 @@
+
 public class Main {
     public static void main(String[] args) {
        RoadMap citymap = new RoadMap();
@@ -119,7 +120,6 @@ public class Main {
            x32, x33, x34, x35, x4E, x4F, x50, x51, x52, x53, 
            x54, x63, x64, x55, x56, x57, x5C, x5D, x5E, x5F, x65
        );
-        
         citymap.addConnection(x01, x65);
         citymap.addConnection(x01, x02);
         citymap.addConnection(x02, x01);
@@ -184,6 +184,7 @@ public class Main {
         citymap.addConnection(x1E, x21);
         citymap.addConnection(x21, x22);
         citymap.addConnection(x22, x11);
+        citymap.addConnection(x11, x22);
         citymap.addConnection(x2D, x3E);
         citymap.addConnection(x3E, x1D);
         citymap.addConnection(x1D, x37);
@@ -219,6 +220,9 @@ public class Main {
         citymap.addConnection(x5B, x0A);
         citymap.addConnection(x5A, x49);
         citymap.addConnection(x5A, x0B);
+        citymap.addConnection(x5B, x5A);
+        citymap.addConnection(x49, x5A);
+        citymap.addConnection(x62, x5A);
         citymap.addConnection(x49, x59);
         citymap.addConnection(x59, x49);
         citymap.addConnection(x59, x39);
@@ -240,6 +244,7 @@ public class Main {
         citymap.addConnection(x35, x0F);
         citymap.addConnection(x10, x4B);
         citymap.addConnection(x11, x23);
+        citymap.addConnection(x23, x11);
         //EAST side ONLY
         citymap.addConnection(x06, x07);
         citymap.addConnection(x07, x06);
@@ -344,19 +349,20 @@ public class Main {
         citymap.addConnection(x4B, x23);
         citymap.addGasStations(x3C,x21,x42,x56,x2F,x39,x15);
         citymap.randomizeTraffic();
+
         Depot depot = new Depot(citymap);
         depot.addTruckToGarage(1);
         depot.fillPackages(400);
         depot.fillTruckWithPackages(1,east);
-        depot.setCityBase(x12);
-        // depot.addTruckToGarage(2);
-        // depot.fillTruckWithPackages(2,east);
+        depot.setCityBase(x30);
+        depot.addTruckToGarage(2);
+        depot.fillTruckWithPackages(2,east);
         depot.setTruckOff(1);
-        // Thread thread1 = new Thread(() -> depot.setTruckOff(1));
-        // Thread thread2 = new Thread(() -> depot.setTruckOff(2));
+        Thread thread1 = new Thread(() -> depot.setTruckOff(1));
+        Thread thread2 = new Thread(() -> depot.setTruckOff(2));
 
-        // thread1.start();
-        // thread2.start();
+        thread1.start();
+        thread2.start();
     }
 
     
