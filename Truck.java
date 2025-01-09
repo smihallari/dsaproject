@@ -15,7 +15,6 @@ class Truck {
     // where the truck is in the city
     private Location truckCurrentLocation;
 
-    private float truckFuel;
     // the current route of the truck, containing the locations of where it is going in succession.
     private LinkedList<Location> truckRoute;
     // the district the truck belongs to
@@ -44,14 +43,6 @@ class Truck {
         this.truckID = truckID;
     }
 
-    // Getter and Setter for onDeliveryjob
-    public boolean isOnDeliveryJob() {
-        return onDeliveryjob;
-    }
-
-    public void setOnDeliveryJob(boolean onDeliveryjob) {
-        this.onDeliveryjob = onDeliveryjob;
-    }
 
     // Getter and Setter for CargoList
     public List<Package> getCargoList() {
@@ -142,18 +133,15 @@ class Truck {
  
 
     //method to move the truck to a certain location in the map
-    public  void goToLocation(Location l)  {
-        gotoLocation(l);
-    }
-    private  void gotoLocation(Location l)  {
+    
+    private  void goToLocation(Location l)   {
         int intWeight=Algorithms.getDistance(truckCurrentLocation, l, citymap.getCityRoads());
         if(intWeight>100) {
             intWeight = 100;
         }
         try {
             // simulate real world moving
-            
-            Thread.sleep(intWeight*10);
+            Thread.sleep(intWeight*1);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -163,6 +151,7 @@ class Truck {
     }
     // method to start deliveries, calculating route and then coming back to the depot
     public void setOff(){
+        startDelivering();
         setoff();
     }
     private void setoff() {
@@ -176,6 +165,7 @@ class Truck {
             // then, the truck route, which will have been calculated by the solvetsp, will already be there calculated, ready to return to depot.
             System.out.println("Truck with id: "+truckID+" is returning to depot");
             while(!truckRoute.isEmpty()){
+                finishedDelivering();
                 goToLocation(getNextStop());
                 if(truckCurrentLocation==citymap.getBase()){
                     System.out.println("Truck with id: "+truckID+" returned to depot");

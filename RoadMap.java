@@ -1,11 +1,9 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 public class RoadMap extends CustomGraph {
-    private List<Location> gasStations;
+
     public RoadMap() {
         super();
-        gasStations = new ArrayList<>();
+
     }
 
     public void addConnection(Location from, Location to) {
@@ -18,14 +16,5 @@ public class RoadMap extends CustomGraph {
             int weight= rand.nextInt(50) ;
             c.setWeight(weight);
         }
-    }
-
-    public void addGasStations(Location ...locations){
-        for(Location l : locations){
-        gasStations.add(l);
-        }
-    }
-    public List<Location> getGasStations(){
-        return gasStations;
     }
 }
