@@ -15,10 +15,8 @@ class Truck {
     // where the truck is in the city
     private Location truckCurrentLocation;
 
-    private float truckFuel;
     // the current route of the truck, containing the locations of where it is going in succession.
     private LinkedList<Location> truckRoute;
-    private boolean onItsWayToRefuel;
     // the district the truck belongs to
     private District district;
     // the city the truck belongs to
@@ -28,12 +26,12 @@ class Truck {
         truckID = ID;
         onDeliveryjob = false;
         truckWeight = weight;
-        truckFuel = 1000;
         CargoList = new ArrayList<Package>();
         maxWeight = max;
         truckRoute = new LinkedList<Location>();
-        onItsWayToRefuel = false;
         citymap = city;
+        truckCurrentLocation = citymap.getBase();
+
 
     }
     // Getter and Setter for truckID
@@ -45,14 +43,6 @@ class Truck {
         this.truckID = truckID;
     }
 
-    // Getter and Setter for onDeliveryjob
-    public boolean isOnDeliveryJob() {
-        return onDeliveryjob;
-    }
-
-    public void setOnDeliveryJob(boolean onDeliveryjob) {
-        this.onDeliveryjob = onDeliveryjob;
-    }
 
     // Getter and Setter for CargoList
     public List<Package> getCargoList() {
@@ -90,15 +80,7 @@ class Truck {
         this.truckCurrentLocation = truckCurrentLocation;
     }
 
-    // Getter and Setter for truckFuel
-    public float getTruckFuel() {
-        return truckFuel;
-    }
-
-    public void setTruckFuel(float truckFuel) {
-        this.truckFuel = truckFuel;
-    }
-
+  
     // Getter and Setter for truckRoute
     public LinkedList<Location> getTruckRoute() {
         return truckRoute;
@@ -108,14 +90,6 @@ class Truck {
         this.truckRoute = truckRoute;
     }
 
-    // Getter and Setter for onItsWayToRefuel
-    public boolean isOnItsWayToRefuel() {
-        return onItsWayToRefuel;
-    }
-
-    public void setOnItsWayToRefuel(boolean onItsWayToRefuel) {
-        this.onItsWayToRefuel = onItsWayToRefuel;
-    }
 
     // Getter and Setter for district
     public District getDistrict() {
@@ -143,87 +117,61 @@ class Truck {
         public void deliverPackages(){
             deliverpackages();
         }
-        private  void deliverpackages()   {
-            if (!getCargoList().isEmpty()) {
-                for (int i = 0; i < getCargoList().size(); i++) {
-                    Package p = getCargoList().get(i);
-                    if (p.getDeliveryLocation() == getTruckCurrentLocation()) {
-                        System.out.println("Successfully delivered package with ID: " + p.getPackageID() + " to location: " + getTruckCurrentLocation());
-                        CargoList.remove(p);
-                        i--;
-                        setTruckWeight(getTruckWeight()-p.getWeight());
-                    }
+        private void deliverpackages() {
+            Iterator<Package> iterator = CargoList.iterator();
+            while (iterator.hasNext()) {
+                Package p = iterator.next();
+                if (p.getDeliveryLocation() == getTruckCurrentLocation()) {
+                    System.out.println("Successfully delivered package with ID: " + p.getPackageID() + " to location: " + getTruckCurrentLocation());
+                    iterator.remove();
+                    setTruckWeight(getTruckWeight() - p.getWeight());
                 }
             }
         }
+        
 
-    // private boolean truckNeedstoRefuel() {
-    //     return getTruckFuel() < 30;
-    // }
-    
-    public void goToReFuel(List<Location> gasStations) {
+ 
 
-        List<Location> path = Algorithms.dijkstraOnlyShortest(truckCurrentLocation, gasStations, citymap.getCityLocations(), citymap.getCityRoads());
-        truckRoute = new LinkedList<Location>();
-        for (Location l : path) {
-            truckRoute.addFirst(l);
-        }
-        onItsWayToRefuel = true;
-    }
-
-    public  void reFuel() {
-        System.out.println("Paid 100$ to refuel! Fuel tank is now at " + getTruckFuel() + "%!");
-        setTruckFuel(100); 
-        double moneypaid = (Math.random() * 25 + 50);
-        System.out.println("Actually paid " + moneypaid + "$ and scammed my boss for the rest (" + (100 - moneypaid) + "$).");
-        onItsWayToRefuel = false;
-        getNextStop();
-    }
     //method to move the truck to a certain location in the map
-    public  void goToLocation(Location l)  {
-        gotoLocation(l);
-    }
-    private  void gotoLocation(Location l)  {
-        if(l==truckCurrentLocation){System.out.println("at this location");}
-        float w = (Algorithms.getDistance(getTruckCurrentLocation(), l, citymap.getCityRoads()))/100;
-        System.out.println("weight"+w);
-        truckFuel-=w;
-
-        System.out.println(getTruckFuel());
-        System.out.println(getTruckFuel());
+    
+    private  void goToLocation(Location l)   {
+        int intWeight=Algorithms.getDistance(truckCurrentLocation, l, citymap.getCityRoads());
+        if(intWeight>100) {
+            intWeight = 100;
+        }
         try {
-            
-            Thread.sleep(20);
+            // simulate real world moving
+            Thread.sleep(intWeight*1);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         setTruckCurrentLocation(l);
         System.out.println("Truck with id: "+truckID+" is at location "+truckCurrentLocation);
         deliverPackages();
-        
     }
     // method to start deliveries, calculating route and then coming back to the depot
     public void setOff(){
+        startDelivering();
         setoff();
     }
     private void setoff() {
         long startTime=System.nanoTime();
         int packagesDelivered=CargoList.size();
-        calculateRoute();
-        System.out.println(CargoList.size());
-            System.out.println(CargoList.size());
+        // deliver all the packages, meaning until the cargo list empties
             while (!CargoList.isEmpty()) {
+                deliverPackages();
                 goToLocation(getNextStop());
             }
+            // then, the truck route, which will have been calculated by the solvetsp, will already be there calculated, ready to return to depot.
             System.out.println("Truck with id: "+truckID+" is returning to depot");
             while(!truckRoute.isEmpty()){
-                goToLocation(truckRoute.pollFirst());
+                finishedDelivering();
+                goToLocation(getNextStop());
                 if(truckCurrentLocation==citymap.getBase()){
                     System.out.println("Truck with id: "+truckID+" returned to depot");
                     break;
                 }
             }
-            
             double elapsedTime = (System.nanoTime() - startTime) / 1_000_000_000.0;
             try (FileWriter writer = new FileWriter("operationData.txt",true)){
                 writer.write("________________________________________________\n");
@@ -235,26 +183,14 @@ class Truck {
             }
         
     }
-
+    // 
     private Location getNextStop() {
-        // if (!truckNeedstoRefuel()) {
             if (!truckRoute.isEmpty()) {
                 return truckRoute.pollFirst();
             } else {
                 calculateRoute();
                 return truckRoute.pollFirst();
             }
-        // } else {
-        //     if (onItsWayToRefuel) return truckRoute.pollFirst();
-        //     else {
-        //         if(truckRoute.isEmpty()){
-        //             calculateRoute();
-        //             return truckRoute.pollFirst();
-        //         }
-        //         goToReFuel(citymap.getGasStations());
-        //         return truckRoute.pollFirst();
-        //     }
-        // }
     }
 
     public boolean isonDelivery() {
@@ -279,21 +215,12 @@ class Truck {
                 locationsToVisit.add(l);
             }
         }
-        
         // if locations to visit are bigger than 10, use dijkstra to find the shortest and just go there.
         if (locationsToVisit.size() > 10) {
-            
             Map<Location, List<Location>> paths = Algorithms.dijkstra(getTruckCurrentLocation(), locationsToVisit, citymap.getCityLocations(), citymap.getCityRoads());
             reCalculateDeliveryWeightFactor(paths);
             Package chosen = nextDelivery();
-            System.out.println(chosen.getPackageID());
-            truckRoute = new LinkedList<>();
             List<Location> chosenPath = paths.get(chosen.getDeliveryLocation());
-            for(Location l: chosenPath)
-            {
-                System.out.println("insdieforlipp"+l.id);
-            }
-            System.out.println(chosenPath.size());
             chosenPath.remove(0);
             for (Location l : chosenPath) {
                 truckRoute.add(l);
@@ -301,11 +228,13 @@ class Truck {
             // else if they are 10 or lower, use TSP to find absolute shortest path
         } else {
             List<Location> fullRoute = Algorithms.solveTSP(getTruckCurrentLocation(), locationsToVisit, citymap.getCityRoads(), citymap.getCityLocations());
-            for (Location l : fullRoute) {
-                truckRoute.addFirst(l);
-            }
+            for(int i=1;i<fullRoute.size()-1;i++){
+                truckRoute.add(fullRoute.get(i));
+            }truckRoute.add(citymap.getBase());
         }
     }
+
+
     // calculate the delivery weight factor for each package.
     private void reCalculateDeliveryWeightFactor(Map<Location, List<Location>> paths) {
         int proximityDelta = 1;
@@ -314,11 +243,13 @@ class Truck {
             Location target = entry.getKey();
             List<Location> path = entry.getValue();
             int totalDistanceWeight = 0;
+            // calculate the total weight to deliver each package
             for (int i = 0; i < path.size() - 1; i++) {
                 Location u = path.get(i);
                 Location v = path.get(i + 1);
                 totalDistanceWeight += Algorithms.getDistance(u, v, citymap.getCityRoads());
             }
+            //
             for (int i = 0; i < CargoList.size(); i++) {
                 Package p = CargoList.get(i);
                 if (p.getDeliveryLocation() == target) {
@@ -328,13 +259,13 @@ class Truck {
                         priorityDelta = 2;
                     }
                     p.setDelWF(proximityDelta * totalDistanceWeight + priorityDelta);
+                    
                 }
             }
         }
     }
     // method to find the package with the lowest delivery weight factor and select that as the one to be delivered first
     private  Package nextDelivery() {
-        if (!CargoList.isEmpty()) {
             Package p = CargoList.get(0);
             for (int i = 1; i < CargoList.size(); i++) {
                 if (CargoList.get(i).getDelWF() < p.getDelWF()) {
@@ -342,7 +273,5 @@ class Truck {
                 }
             }
             return p;
-        }
-        return null;
     }
 }

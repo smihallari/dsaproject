@@ -4,6 +4,11 @@ public class Connection extends Edge {
         super(from, to);
     }
 
+    public Connection(Location from, Location to,int weight) {
+        super(from, to);
+        setWeight(weight);
+    }
+
     public void updateTraffic(int traffic) {
         setWeight(traffic);
     }
