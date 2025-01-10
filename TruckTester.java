@@ -7,7 +7,6 @@ class TruckTester {
     private RoadMap city;
     private Location baseLocation;
     private Package package1;
-    private Package package2;
 
     @BeforeEach
     void setUp() {
@@ -16,7 +15,7 @@ class TruckTester {
         city.setBase(baseLocation);
         truck = new Truck(1, 1000, 5000, city);
         package1 = new Package(1, false,200, baseLocation, -1);
-        package2 = new Package(2, true,300, new Location(1,"Location A"), -1);
+
     }
 
     @Test
