@@ -183,8 +183,11 @@ class Truck {
             }
         
     }
-    // 
-    private Location getNextStop() {
+    // method to get the next stop of the truck, if the truck route is empty, calculate the route.
+    public Location getNextStop() {
+        return getnextStop();
+    }
+    private Location getnextStop() {
             if (!truckRoute.isEmpty()) {
                 return truckRoute.pollFirst();
             } else {
