@@ -350,11 +350,16 @@ public class CourierDeliveryService {
 
         Depot depot = new Depot(citymap);
         depot.addTruckToGarage(1);
-        depot.fillPackages(400);
-        depot.fillTruckWithPackages(1,east);
-        depot.setCityBase(x30);
         depot.addTruckToGarage(2);
-        depot.fillTruckWithPackages(2,east);
-        depot.setTruckOff(1);
+        depot.fillPackages(4000);
+        depot.setCityBase(x30);
+        depot.fillTruckWithPackages(1,east);
+        depot.fillTruckWithPackages(2,west);
+        Thread thread1 = new Thread(() -> depot.setTruckOff(1));
+        Thread thread2 = new Thread(() -> depot.setTruckOff(2));
+        thread2.start();
+        thread1.start();
+        
+        
     }
 }
