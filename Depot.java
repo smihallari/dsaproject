@@ -17,6 +17,10 @@ public class Depot {
     private void setcityBase(Location l){
         city.setBase(l);
     }
+
+    public Garage getGarage() {
+        return garage;
+    }   
     // method to get packages (supposedly from a third-party contractor)
     public void fillPackages(int number){
         Random random = new Random();
@@ -32,10 +36,17 @@ public class Depot {
         Random random= new Random();
         garage.addTruck(truckid, (random.nextInt(1000)+2500), (random.nextInt(1000)+10000),city );
     }
+
+    public DeliveryQueue<Package> getPackageQueue() {
+
+        return packageQueue;
+
+    }
     // method to fill the truck with packages, based on the district it is in, until the packages run out or the truck is full weight.
     public void fillTruckWithPackages(int truckID, District d) {
         filltruckWithPackages(truckID, d);
     }
+
     private void filltruckWithPackages(int truckID, District d) {
             Truck t =garage.getTruck(truckID);
             DeliveryQueue<Package> newQueue = new DeliveryQueue<>();
