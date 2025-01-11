@@ -24,9 +24,9 @@ public class DeliveryQueue<T extends Package> {
         size++;
     }
     //Removes and returns the package at the front of the queue.
-    public T dequeue() {
+    public T dequeue() throws DeliveryQueueEmptyException{
         if (head == null) {
-            System.out.println("Delivery queue is empty");
+            throw new DeliveryQueueEmptyException("Delivery queue is empty");
         }
         T data = head.data;
         head = head.next;
@@ -34,9 +34,9 @@ public class DeliveryQueue<T extends Package> {
         return data;
     }
     //Return the package at the front of the queue without removing it
-    public T peek() {
+    public T peek() throws DeliveryQueueEmptyException{
         if (head == null) {
-            System.out.println("its empty");
+            throw new DeliveryQueueEmptyException("Delivery queue is empty");
         }
         return head.data;
     }

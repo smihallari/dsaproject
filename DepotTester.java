@@ -2,19 +2,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.Random;
 
 class DepotTester {
 
     private Depot depot;
     private RoadMap city;
     private District district;
-    private DeliveryQueue<Package> packageQueue;
 
     @BeforeEach
     void setUp() {
         city = new RoadMap(); 
-        packageQueue = new DeliveryQueue<>();
         city.setBase(new Location(0, "Depot"));
         district = new District("DistrictA"); 
         Location locationA = new Location(1, "Location A");

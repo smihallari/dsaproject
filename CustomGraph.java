@@ -1,7 +1,7 @@
 import java.util.*;
 
-public class CustomGraph {
-
+public abstract class CustomGraph {
+// Customgraph can be an abstract class, but to test its 
     public  List<Location> graphVertices;
     public  List<Connection> graphEdges;
     public Location base;

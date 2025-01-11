@@ -129,19 +129,15 @@ class Truck {
             }
         }
         
-
- 
-
     //method to move the truck to a certain location in the map
     
     private  void goToLocation(Location l)   {
-        int intWeight=Algorithms.getDistance(truckCurrentLocation, l, citymap.getCityRoads());
-        if(intWeight>100) {
-            intWeight = 100;
-        }
+        // Slowing the process of printing the locations for real world emulation.
+        // Limiting to 50 so very large roads dont hold the algorithm up for too long
+        int intWeight = Math.min(Algorithms.getDistance(truckCurrentLocation, l, citymap.getCityRoads()),50);
         try {
             // simulate real world moving
-            Thread.sleep(intWeight*1);
+            Thread.sleep(intWeight);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

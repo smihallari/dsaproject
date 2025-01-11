@@ -51,15 +51,19 @@ public class Depot {
             Truck t =garage.getTruck(truckID);
             DeliveryQueue<Package> newQueue = new DeliveryQueue<>();
             for(int j=0;j<packageQueue.size();j++){
-                Package p = packageQueue.dequeue();
+                Package p = null;
+                try{
+                p = packageQueue.dequeue();
+                }catch(DeliveryQueueEmptyException e){
+                    System.out.println(" Del Queue is empty.");
+                }
                 if(d.partOfDistrict(p.getDeliveryLocation()) ){
                     try{
-                        t.addPackage(packageQueue.dequeue());
+                        t.addPackage(p);
                     }catch(TruckOverWeightException e){
                         System.out.println("Filled the truck"); 
                         break; 
                     }
-                    
                 }
                 else{
                     newQueue.enqueue(p);

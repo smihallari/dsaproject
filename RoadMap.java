@@ -1,9 +1,13 @@
+import java.util.List;
 import java.util.Random;
 public class RoadMap extends CustomGraph {
 
     public RoadMap() {
         super();
 
+    }
+    public RoadMap(List<Location> vertices, List<Connection> edges) {
+        super(vertices,edges);
     }
 
     public void addConnection(Location from, Location to) {
@@ -13,7 +17,7 @@ public class RoadMap extends CustomGraph {
     public void randomizeTraffic(){
         Random rand= new Random();
         for(Connection c: graphEdges){
-            int weight= rand.nextInt(50) ;
+            int weight= rand.nextInt(100) ;
             c.setWeight(weight);
         }
     }

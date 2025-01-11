@@ -3,7 +3,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 class DeliveryQueueTester {
 
@@ -23,7 +22,7 @@ class DeliveryQueueTester {
     }
 
     @Test
-    void testEnqueuePriorityOrder() {
+    void testEnqueuePriorityOrder() throws DeliveryQueueEmptyException {
         queue.enqueue(priorityPackage2);
         queue.enqueue(priorityPackage1);
 
@@ -31,7 +30,7 @@ class DeliveryQueueTester {
     }
 
     @Test
-    void testEnqueueRegularAfterPriority() {
+    void testEnqueueRegularAfterPriority() throws DeliveryQueueEmptyException {
         queue.enqueue(priorityPackage1);
         queue.enqueue(regularPackage1);
 
@@ -40,7 +39,7 @@ class DeliveryQueueTester {
     }
 
     @Test
-    void testEnqueueMixedOrder() {
+    void testEnqueueMixedOrder() throws DeliveryQueueEmptyException {
         queue.enqueue(regularPackage2);
         queue.enqueue(priorityPackage2);
         queue.enqueue(regularPackage1);
@@ -53,14 +52,14 @@ class DeliveryQueueTester {
     }
 
     @Test
-    void testPeek() {
+    void testPeek() throws DeliveryQueueEmptyException {
         queue.enqueue(priorityPackage1);
         assertEquals(priorityPackage1, queue.peek(), "Peek should return the package at the front.");
         assertEquals(1, queue.size(), "Peek should not remove the package from the queue.");
     }
 
     @Test
-    void testIsEmpty() {
+    void testIsEmpty() throws DeliveryQueueEmptyException {
         assertTrue(queue.isEmpty(), "Queue should be empty initially.");
         queue.enqueue(priorityPackage1);
         assertFalse(queue.isEmpty(), "Queue should not be empty after adding a package.");
@@ -69,7 +68,7 @@ class DeliveryQueueTester {
     }
 
     @Test
-    void testSize() {
+    void testSize() throws DeliveryQueueEmptyException {
         assertEquals(0, queue.size(), "Size should be 0 initially.");
         queue.enqueue(priorityPackage1);
         queue.enqueue(regularPackage1);

@@ -1,4 +1,4 @@
-public class Vertex {
+public abstract class Vertex {
     
     String label;
     int id;

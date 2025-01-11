@@ -191,7 +191,7 @@ ________________________________________________
 ________________________________________________
 Elapsed time for truck to set off and return: 52.6568062 seconds
 Num of packages delivered: 86
-________________________________________________________________________________________________
+________________________________________________
 CASE FOR TSP
 Elapsed time for TSP: 12.9767025 seconds
 Num of locations to visit: 10
@@ -199,14 +199,6 @@ ________________________________________________
 ________________________________________________
 Elapsed time for truck to set off and return: 138.7919829 seconds
 Num of packages delivered: 72
-________________________________________________
-________________________________________________
-Elapsed time for truck to set off and return: 6.099E-4 seconds
-Num of packages delivered: 0
-________________________________________________
-________________________________________________
-Elapsed time for truck to set off and return: 5.114E-4 seconds
-Num of packages delivered: 0
 ________________________________________________
 ________________________________________________
 CASE FOR TSP
@@ -218,14 +210,6 @@ Elapsed time for truck to set off and return: 49.5902774 seconds
 Num of packages delivered: 88
 ________________________________________________
 ________________________________________________
-Elapsed time for truck to set off and return: 6.501E-4 seconds
-Num of packages delivered: 0
-________________________________________________
-________________________________________________
-Elapsed time for truck to set off and return: 4.923E-4 seconds
-Num of packages delivered: 0
-________________________________________________
-________________________________________________
 CASE FOR TSP
 Elapsed time for TSP: 13.1666788 seconds
 Num of locations to visit: 10
@@ -233,14 +217,6 @@ ________________________________________________
 ________________________________________________
 Elapsed time for truck to set off and return: 18.2543273 seconds
 Num of packages delivered: 81
-________________________________________________
-________________________________________________
-Elapsed time for truck to set off and return: 3.585E-4 seconds
-Num of packages delivered: 0
-________________________________________________
-________________________________________________
-Elapsed time for truck to set off and return: 3.126E-4 seconds
-Num of packages delivered: 0
 ________________________________________________
 ________________________________________________
 CASE FOR TSP
@@ -260,21 +236,7 @@ ________________________________________________
 Elapsed time for truck to set off and return: 24.0817795 seconds
 Num of packages delivered: 78
 ________________________________________________
-________________________________________________
-CASE FOR TSP
-Elapsed time for TSP: 5.43E-5 seconds
-Num of locations to visit: 0
-________________________________________________
-________________________________________________
-CASE FOR TSP
-Elapsed time for TSP: 2.48E-5 seconds
-Num of locations to visit: 0
-________________________________________________
-________________________________________________
-CASE FOR TSP
-Elapsed time for TSP: 3.46E-5 seconds
-Num of locations to visit: 0
-________________________________________________
+
 ________________________________________________
 CASE FOR TSP
 Elapsed time for TSP: 44.0720962 seconds
@@ -284,10 +246,7 @@ ________________________________________________
 Elapsed time for truck to set off and return: 49.9907784 seconds
 Num of packages delivered: 77
 ________________________________________________
-________________________________________________
-Elapsed time for truck to set off and return: 0.0357699 seconds
-Num of packages delivered: 0
-________________________________________________
+
 ________________________________________________
 CASE FOR TSP
 Elapsed time for TSP: 22.3554742 seconds
@@ -345,4 +304,224 @@ ________________________________________________
 ________________________________________________
 Elapsed time for truck to set off and return: 23.9088015 seconds
 Num of packages delivered: 182
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 18.4200086 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 15.9927149 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 22.1106178 seconds
+Num of packages delivered: 44
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 22.1151756 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 23.032064 seconds
+Num of packages delivered: 173
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 27.3834436 seconds
+Num of packages delivered: 65
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 21.3222104 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 31.7302214 seconds
+Num of packages delivered: 196
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 14.3361163 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 15.2322164 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 17.2075982 seconds
+Num of packages delivered: 89
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 19.0219543 seconds
+Num of packages delivered: 178
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 12.4540632 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 15.7260457 seconds
+Num of packages delivered: 103
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 14.4630927 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 18.364533 seconds
+Num of packages delivered: 194
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 13.5296353 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 14.0060867 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 17.7586128 seconds
+Num of packages delivered: 115
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 18.519617 seconds
+Num of packages delivered: 213
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 13.9780454 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 14.1585305 seconds
+Num of packages delivered: 76
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 17.1833104 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 17.4113887 seconds
+Num of packages delivered: 167
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 13.7599248 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 13.9649371 seconds
+Num of packages delivered: 84
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 14.3269956 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 14.5574762 seconds
+Num of packages delivered: 174
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 15.5232004 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 15.6648939 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 14.0973796 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 13.7191653 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 14.0107235 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 13.6243305 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 13.2627277 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 13.6406241 seconds
+Num of packages delivered: 210
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 13.6201742 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 13.9677131 seconds
+Num of packages delivered: 109
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 12.9844014 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 13.7081365 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 15.1706546 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 17.1723687 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 27.6031314 seconds
+Num of packages delivered: 88
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 39.1432262 seconds
+Num of packages delivered: 203
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 14.0998945 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+CASE FOR TSP
+Elapsed time for TSP: 13.9283861 seconds
+Num of locations to visit: 10
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 18.3125383 seconds
+Num of packages delivered: 103
+________________________________________________
+________________________________________________
+Elapsed time for truck to set off and return: 18.652557 seconds
+Num of packages delivered: 192
 ________________________________________________

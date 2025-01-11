@@ -1,22 +1,26 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+//To test the abstract class CustomGraph, we used the class which extends it, RoadMap
+//While we also could have left CustomGraph as a non-abstract class, this seemed like a more appropriate solution.
+
+
+
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CustomGraphTester {
-
+    
     private CustomGraph graph;
     private Location locationA;
     private Location locationB;
     private Location locationC;
-
+    
     @BeforeEach
     void setUp() {
-        graph = new CustomGraph();
+        graph = new RoadMap();
         locationA = new Location(1,"A");
         locationB = new Location(2,"B");
         locationC = new Location(3,"C");
@@ -80,7 +84,7 @@ class CustomGraphTester {
         List<Connection> edges = new ArrayList<>();
         edges.add(new Connection(locationA, locationB));
 
-        CustomGraph customGraph = new CustomGraph(vertices, edges);
+        RoadMap customGraph = new RoadMap(vertices, edges);
 
         assertEquals(2, customGraph.getCityLocations().size(), "The graph should have two locations.");
         assertEquals(1, customGraph.getCityRoads().size(), "The graph should have one connection.");

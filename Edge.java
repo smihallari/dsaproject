@@ -1,4 +1,4 @@
-class Edge {
+abstract class Edge {
     Vertex source;
     Vertex destination;
     public int weight;
